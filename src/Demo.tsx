@@ -1,9 +1,24 @@
 import 'react-calendar/dist/Calendar.css';
 
-import { Chat, ChatWindow, Launcher, RuntimeAPIProvider, SessionStatus, SystemResponse, TurnType, UserResponse } from '@voiceflow/react-chat';
-import { useContext, useState } from 'react';
+import React, {
+  useContext,
+  useState,
+} from 'react';
+
 import { match } from 'ts-pattern';
 
+import {
+  Chat,
+  ChatWindow,
+  Launcher,
+  RuntimeAPIProvider,
+  SessionStatus,
+  SystemResponse,
+  TurnType,
+  UserResponse,
+} from '@voiceflow/react-chat';
+
+import CustomCarousel from './components/CustomCarousel';
 import { LiveAgentStatus } from './components/LiveAgentStatus.component';
 import { StreamedMessage } from './components/StreamedMessage.component';
 import { RuntimeContext } from './context';
@@ -13,14 +28,18 @@ import { VideoMessage } from './messages/VideoMessage.component';
 import { DemoContainer } from './styled';
 import { useLiveAgent } from './use-live-agent.hook';
 
-const IMAGE = 'https://picsum.photos/seed/1/200/300';
-const AVATAR = 'https://picsum.photos/seed/1/80/80';
+export const IMAGE = 'https://i.ibb.co/cFpjhbs/Group-1012.png';
+export const AVATAR = 'https://i.ibb.co/M84hzr3/Group-1010.png';
 
 export const Demo: React.FC = () => {
   const [open, setOpen] = useState(false);
 
   const { runtime } = useContext(RuntimeContext)!;
   const liveAgent = useLiveAgent();
+
+  React.useEffect(() => {
+    handleLaunch()
+  }, [])
 
   const handleLaunch = async () => {
     setOpen(true);
@@ -56,14 +75,17 @@ export const Demo: React.FC = () => {
 
   return (
     <DemoContainer>
-      <ChatWindow.Container>
+      <ChatWindow.Container style={{
+        fontFamily: 'DM Sans'
+      }}>
         <RuntimeAPIProvider {...runtime}>
           <Chat
-            title="My Assistant"
-            description="welcome to my assistant"
+          
+            title="Adani Realty"
+            description="Your real estate virtual assistant."
             image={IMAGE}
             avatar={AVATAR}
-            withWatermark
+            withWatermark={false}
             startTime={runtime.session.startTime}
             hasEnded={runtime.isStatus(SessionStatus.ENDED)}
             isLoading={!runtime.session.turns.length}
@@ -80,15 +102,18 @@ export const Demo: React.FC = () => {
                   <SystemResponse
                     {...rest}
                     key={id}
-                    Message={({ message, ...props }) =>
-                      match(message)
-                        .with({ type: CustomMessage.CALENDAR }, ({ payload: { today } }) => (
-                          <CalendarMessage {...props} value={new Date(today)} runtime={runtime} />
-                        ))
-                        .with({ type: CustomMessage.VIDEO }, ({ payload: url }) => <VideoMessage url={url} />)
-                        .with({ type: CustomMessage.STREAMED_RESPONSE }, ({ payload: { getSocket } }) => <StreamedMessage getSocket={getSocket} />)
-                        .with({ type: CustomMessage.PLUGIN }, ({ payload: { Message } }) => <Message />)
-                        .otherwise(() => <SystemResponse.SystemMessage {...props} message={message} />)
+                    Message={({ message, ...props }) => {
+                        console.log(message)
+                        return match(message)
+                          .with({ type: 'carousel' }, () => <CustomCarousel message={message} />)
+                          .with({ type: CustomMessage.CALENDAR }, ({ payload: { today } }) => (
+                            <CalendarMessage {...props} value={new Date(today)} runtime={runtime} />
+                          ))
+                          .with({ type: CustomMessage.VIDEO }, ({ payload: url }) => <VideoMessage url={url} />)
+                          .with({ type: CustomMessage.STREAMED_RESPONSE }, ({ payload: { getSocket } }) => <StreamedMessage getSocket={getSocket} />)
+                          .with({ type: CustomMessage.PLUGIN }, ({ payload: { Message } }) => <Message />)
+                          .otherwise(() => <SystemResponse.SystemMessage {...props} message={message} />)
+                      }
                     }
                     avatar={AVATAR}
                     isLast={turnIndex === runtime.session.turns.length - 1}

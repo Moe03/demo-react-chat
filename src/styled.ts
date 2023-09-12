@@ -10,6 +10,7 @@ export const DemoContainer = styled.div({
   borderRadius: '8px',
   overflowX: 'hidden',
   overflowY: 'scroll',
+  fontFamily: 'DM Sans',
 
   '@media (max-width: 768px)': {
     position: 'fixed',
