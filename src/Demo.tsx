@@ -75,12 +75,9 @@ export const Demo: React.FC = () => {
 
   return (
     <DemoContainer>
-      <ChatWindow.Container style={{
-        fontFamily: 'DM Sans'
-      }}>
+      <ChatWindow.Container>
         <RuntimeAPIProvider {...runtime}>
           <Chat
-          
             title="Adani Realty"
             description="Your real estate virtual assistant."
             image={IMAGE}
@@ -103,16 +100,18 @@ export const Demo: React.FC = () => {
                     {...rest}
                     key={id}
                     Message={({ message, ...props }) => {
-                        console.log(message)
+                      const returnState = React.useMemo(() => {
                         return match(message)
-                          .with({ type: 'carousel' }, () => <CustomCarousel message={message} />)
-                          .with({ type: CustomMessage.CALENDAR }, ({ payload: { today } }) => (
-                            <CalendarMessage {...props} value={new Date(today)} runtime={runtime} />
-                          ))
-                          .with({ type: CustomMessage.VIDEO }, ({ payload: url }) => <VideoMessage url={url} />)
-                          .with({ type: CustomMessage.STREAMED_RESPONSE }, ({ payload: { getSocket } }) => <StreamedMessage getSocket={getSocket} />)
-                          .with({ type: CustomMessage.PLUGIN }, ({ payload: { Message } }) => <Message />)
-                          .otherwise(() => <SystemResponse.SystemMessage {...props} message={message} />)
+                        .with({ type: 'carousel' }, () => <CustomCarousel message={message} />)
+                        .with({ type: CustomMessage.CALENDAR }, ({ payload: { today } }) => (
+                          <CalendarMessage {...props} value={new Date(today)} runtime={runtime} />
+                        ))
+                        .with({ type: CustomMessage.VIDEO }, ({ payload: url }) => <VideoMessage url={url} />)
+                        .with({ type: CustomMessage.STREAMED_RESPONSE }, ({ payload: { getSocket } }) => <StreamedMessage getSocket={getSocket} />)
+                        .with({ type: CustomMessage.PLUGIN }, ({ payload: { Message } }) => <Message />)
+                        .otherwise(() => <SystemResponse.SystemMessage {...props} message={message} />)
+                      }, [message]);
+                      return returnState
                       }
                     }
                     avatar={AVATAR}

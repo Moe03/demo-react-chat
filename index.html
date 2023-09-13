@@ -4,23 +4,70 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <title>Custom VF Assistant</title>
   <style>
+    .vfrc-assistant-info .vfrc-assistant-info--title {
+      color: white;
+    }
+    .vfrc-chat--overlay {
+      background: #2196F3 !important;
+    }
+    article .vfrc-chat {
+      background: #2196F3 !important;
+    }
+    footer .vfrc-footer{
+      background-color: #0D5CB7 !important;
+    }
+    .vfrc-assistant-info .vfrc-assistant-info--description {
+      color: white;
+      opacity: 80%
+    }
+    .vfrc-chat--dialog{
+      background-image: linear-gradient(to bottom, #2196F3, #0D5CB7);
+    }
+    .vfrc-system-response .vfrc-message {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .vfrc-chat--session-time {
+      color: white !important;
+      opacity: 80%;
+    }
+    .vfrc-timestamp{
+      color: rgba(255, 255, 255, 0.5) !important;
+      opacity: 50%;
+    }
+    a {
+      color: white !important;
+    }
+    .vfrc-carousel .vfrc-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    .vfrc-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    main .vfrc-card--header {
+      color: white;
+    }
+    main .vfrc-card--description {
+      color: white;
+      opacity: 80%;
+    }
+    
     body{
       overflow-x: hidden;
     }
     * {
       font-family: DM Sans !important;
     }
-
   </style>
 </head>
 <body>
-  
   <div id="root"></div>
   <script src="./plugin/build/bundle.mjs"></script>
   <script type="module" src="./src/main.tsx"></script>

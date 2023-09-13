@@ -9,7 +9,7 @@ export const DemoContainer = styled.div({
   border: '1px solid #ddd',
   borderRadius: '8px',
   overflowX: 'hidden',
-  overflowY: 'scroll',
+  overflowY: 'hidden',
 
   '@media (max-width: 768px)': {
     width: '100%',
