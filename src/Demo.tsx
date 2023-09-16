@@ -95,6 +95,7 @@ export const Demo: React.FC = () => {
   }, [])
 
   const handleLaunch = async () => {
+    console.log('hi ;)')
     setOpen(true);
     await runtime.launch();
   };
