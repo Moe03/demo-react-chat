@@ -1,7 +1,10 @@
 import { createRoot } from 'react-dom/client';
 
 import { RuntimeProvider } from './context';
-import { Demo } from './Demo';
+import {
+  AVATAR,
+  Demo,
+} from './Demo';
 
 createRoot(document.getElementById('root')!).render(
   <>
@@ -11,7 +14,7 @@ createRoot(document.getElementById('root')!).render(
     <Demo />
   </RuntimeProvider>
   <div style={{width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <img id='img_id' style={{width: '50%', height: 'auto'}} src="https://i.ibb.co/jRqWzfM/50566334446-fbadd0ed3d-h.png" alt="50566334446-fbadd0ed3d-h"  />
+        <img id='img_id' style={{width: '50%', height: 'auto'}} src={AVATAR} alt="50566334446-fbadd0ed3d-h"  />
       </div>
   </>
 

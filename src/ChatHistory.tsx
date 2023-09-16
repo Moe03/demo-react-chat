@@ -31,9 +31,18 @@ import { VideoMessage } from './messages/VideoMessage.component';
 import { DemoContainer } from './styled';
 import { useLiveAgent } from './use-live-agent.hook';
 
-export const IMAGE = 'https://i.ibb.co/nzr1pvg/Group-1051.png';
-export const AVATAR = 'https://i.ibb.co/nzr1pvg/Group-1051.png';
+export const IMAGE = 'https://i.ibb.co/cFpjhbs/Group-1012.png';
+export const AVATAR = 'https://i.ibb.co/M84hzr3/Group-1010.png';
 export const TITLE = 'SOBHA Developers Assistant';
+
+// TODO: Add SDKs for Firebase products that you want to use
+
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+
+// Your web app's Firebase configuration
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 const firebaseConfig = {
 
@@ -76,7 +85,7 @@ export const Demo: React.FC = () => {
 
     const newChatCollection = await addDoc(collection(db, targetCollection), {...lastTurn});
     console.log(wholeSession.userID, lastTurn.timestamp)
-    await setDoc(doc(db, `sobha/chats/collections/${wholeSession.userID}`), {ts: lastTurn.timestamp, userID: wholeSession.userID}, {merge: true}).catch((err) => console.log(err));
+    await setDoc(doc(db, `wtf/${wholeSession.userID || 'fsdfsd'}`), {ts: lastTurn.timestamp, userID: wholeSession.userID}, {merge: true}).catch((err) => console.log(err));
   }
 
   React.useEffect(() => {
@@ -131,7 +140,7 @@ export const Demo: React.FC = () => {
       <ChatWindow.Container>
         <RuntimeAPIProvider {...runtime}>
           <Chat
-            title={`${TITLE}`}
+            title="Adani Realty"
             description="Your real estate virtual assistant."
             image={IMAGE}
             avatar={AVATAR}
