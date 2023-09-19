@@ -70,32 +70,26 @@ export const Demo: React.FC = () => {
 
   async function updateChatHistory(targetCollection: string, turns: TurnProps[], wholeSession: any){
     const lastTurn = turns[turns.length - 1];
-    console.log(lastTurn)
     const { getFirestore, setDoc, collection, addDoc, doc } = await import(`@firebase/firestore/lite`)
     const db = getFirestore(app);
 
     const newChatCollection = await addDoc(collection(db, targetCollection), {...lastTurn});
-    console.log(wholeSession.userID, lastTurn.timestamp)
     await setDoc(doc(db, `sobha/chats/collections/${wholeSession.userID}`), {ts: lastTurn.timestamp, userID: wholeSession.userID}, {merge: true}).catch((err) => console.log(err));
   }
 
   React.useEffect(() => {
-    console.log('WHAT THE FUKKK')
     if(runtime.session.turns.length > turnsLocal.length){
-  
-      console.log(runtime.session.userID);
       updateChatHistory(`sobha/chats/${runtime.session.userID}`, runtime.session.turns, runtime.session)
       setTurnsLocal(runtime.session.turns);
     }
   }, [runtime?.session]);
   
 
-  React.useEffect(() => {
-    handleLaunch()
-  }, [])
+  // React.useEffect(() => {
+  //   handleLaunch()
+  // }, [])
 
   const handleLaunch = async () => {
-    console.log('hi ;)')
     setOpen(true);
     await runtime.launch();
   };
